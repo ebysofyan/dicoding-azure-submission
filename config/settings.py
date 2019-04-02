@@ -25,7 +25,10 @@ SECRET_KEY = '3xffrau+ha4cc3w5t5#d!0!*#jh4bp+cprl9s^s@+-hpyro^c^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '0.0.0.0',
+]
 
 
 # Application definition
@@ -37,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
+    'app'
 ]
 
 MIDDLEWARE = [
@@ -54,7 +59,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,10 +82,20 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'dicodingazure',
+        'USER': 'ebysofyan',
+        'PASSWORD': os.environ['SQL_SERVER_PASSWORD'],
+        'HOST': 'dicodingauzreserver.database.windows.net',
+        'PORT': '',
+
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    },
 }
+
+DATABASE_CONNECTION_POOLING = False
 
 
 # Password validation
