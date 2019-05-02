@@ -125,4 +125,4 @@ class FileUploadPageView(FormView):
 
         self.send_analyze_result_as_message(blobname)
 
-        return redirect('')
+        return redirect('index:view')
