@@ -98,6 +98,7 @@ class FileUploadPageView(FormView):
 
     def send_analyze_result_as_message(self, blobname):
         res = self.analyze_image(blobname)
+        print(res.text)
         messages.info(self.request, message=json.dumps(res.json()))
 
     def get_context_data(self, *args, **kwargs):
