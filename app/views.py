@@ -1,6 +1,7 @@
 """
 app.views
 """
+import json
 import os
 import time
 
@@ -97,7 +98,7 @@ class FileUploadPageView(FormView):
 
     def send_analyze_result_as_message(self, blobname):
         res = self.analyze_image(blobname)
-        messages.info(self.request, message=res.json())
+        messages.info(self.request, message=json.dumps(res.json()))
 
     def get_context_data(self, *args, **kwargs):
         context = super(FileUploadPageView, self).get_context_data(*args, **kwargs)
