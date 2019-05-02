@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ebysofyan ~ Submission Dicoding Kelas Microsoft Azure</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-3">
+                <div class="col-md-12 card mb-4">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h5>Choose your file!</h5>
+                        </div>
+                        <form action="/analyze" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="file" name="file" class="form-control-file" accept="image/*">
+                            </div>
+                            <div class="form-group" style="float: right;">
+                                <button class="btn btn-primary" type="submit">Submit & Analyze</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="col-md-12 card mb-4">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h5>Analysis Results</h5>
+                        </div>
+                        <div class="card-body" style="background: gainsboro; max-height: 300px; overflow-y: auto">
+                            {{message.message}}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="col-md-12 card">
+                    <div class="card-body" style="margin: 0">
+                        <div class="card-title">
+                            <h5>Files</h5>
+                        </div>
+                        <div class="list-group" style="margin: 0">
+                            {% for blob in blobs %}
+                            <li href="#" class="list-group-item list-group-item-action">
+                                <span>{{blob.name}}</span>
+                                <a href="/analyze?blobname={{blob.name}}" class="btn btn-sm btn-primary"
+                                    style="float: right">re-analyze</a>
+                            </li>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
+    <script>
+        $("#frameworks").tagsInput({
+            'width': '100%',
+            'defaultText': 'Programming language frameworks',
+        })
+    </script>
+</body>
+
+</html>
