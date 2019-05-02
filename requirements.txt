@@ -2,4 +2,4 @@ Django == 2.1.7
 django-pyodbc-azure
 azure-storage-blob
 requests
-pillow
+pillow==5.3.0
