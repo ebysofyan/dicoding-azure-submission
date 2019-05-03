@@ -34,18 +34,21 @@
                     </div>
                 </div>
                 {% if messages %}
-                {% for message in messages %}
                 <div class="col-md-12 card mb-4">
                     <div class="card-body">
                         <div class="card-title">
                             <h5>Analysis Results</h5>
                         </div>
-                        <div class="card-body" style="background: gainsboro; max-height: 300px; overflow-y: auto">
-                            {{message.message}}
+                        {% for message in messages %}
+                        <div class="d-flex" style="flex-direction: column; align-items: center">
+                            <img src="{{message.message.0}}" alt="" width="100%" class="mb-2">
+                            <div class="card-body" style="background: gainsboro; max-height: 300px; overflow-y: auto">
+                                {{message.message.1}}
+                            </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
-                {% endfor %}
                 {% endif %}
                 <div class="col-md-12 card">
                     <div class="card-body" style="margin: 0">
@@ -53,9 +56,20 @@
                             <h5>Files</h5>
                         </div>
                         <div class="list-group" style="margin: 0">
+                            <style>
+                                .list-item {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                }
+                            </style>
                             {% for blob in blobs %}
-                            <li href="#" class="list-group-item list-group-item-action">
-                                <span>{{blob.name}}</span>
+                            <li href="#" class="list-group-item list-group-item-action list-item">
+                                <div>
+                                    <img src="{{blob.url}}" alt="{{blob.name}}" srcset="" width="55px" height="55px"
+                                        style="border-radius: 6px;">
+                                    <span>{{blob.name}}</span>
+                                </div>
                                 <a href="{% url 'index:view' %}?blobname={{blob.name}}" class="btn btn-sm btn-primary"
                                     style="float: right">re-analyze</a>
                             </li>
