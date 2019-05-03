@@ -1,7 +1,6 @@
 """
 app.views
 """
-import json
 import os
 import time
 
@@ -99,8 +98,10 @@ class FileUploadPageView(FormView):
     def send_analyze_result_as_message(self, blobname):
         res = self.analyze_image(blobname)
         blob = self.create_blob_url(blobname)
-        
-        list_message = [blob['url'], json.dumps(res.json())]
+
+        print(blobname)
+
+        list_message = [blob['url'], res.json()]
         messages.info(self.request, message=list_message)
 
     def get_context_data(self, *args, **kwargs):
@@ -125,6 +126,4 @@ class FileUploadPageView(FormView):
         self.block_blob_service.create_blob_from_path(self.container_name, blobname, image_temp_file.name)
         image_temp_file.close()
 
-        self.send_analyze_result_as_message(blobname)
-
-        return redirect('index:view')
+        return redirect(f'/?blobname={blobname}')
