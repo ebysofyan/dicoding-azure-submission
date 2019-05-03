@@ -61,7 +61,7 @@ class FileUploadPageView(FormView):
     template_name = 'blob_storage.html'
     form_class = FileUplaodForm
     container_name = 'dicodingsubcontainer'
-    vision_url = 'https://southeastasia.api.cognitive.microsoft.com/vision/v2.0/analyze'
+    vision_url = 'https://southcentralus.api.cognitive.microsoft.com/vision/v2.0/analyze'
 
     @property
     def block_blob_service(self):
